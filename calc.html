@@ -1,0 +1,134 @@
+<style>
+#calculator {
+	width:350px;
+	height:450px;
+	border-radius:10px;
+	background-color:green;
+	/*margin:0 auto;*/
+	padding:10px;
+}
+
+#screen {
+	width:300px;
+	height:30px;
+	border-radius:10px;
+	background-color:#fff;
+	margin:0 auto;
+	margin-bottom:50px;
+	text-align:right;
+	padding:20px 10px;
+	font-size:20px;
+    overflow: hidden;
+    letter-spacing: 4px;
+}
+
+.rows {
+	padding:10px;
+	margin:0 auto;
+	width:300px;
+}
+
+.rows > button {
+	width:70px;
+	height:40px;
+	cursor:pointer;
+}
+
+.big {
+	width:145px !important;
+}
+
+
+</style>
+
+<div id ="calculator">
+	<div id ="screen"></div>
+	
+	<div class="rows">
+		<button class="big del" value="del">del</button>
+		<button class="" value="%">%</button>
+		<button class="operator" value="+">+</button>
+	</div>
+	
+	<div class="rows">
+		<button class="number" value="7">7</button>
+		<button class="number" value="8">8</button>
+		<button class="number" value="9">9</button>
+		<button class="operator" value="-">-</button>
+	</div>
+	
+	
+	<div class="rows">
+		<button class="number" value="4">4</button>
+		<button class="number" value="5">5</button>
+		<button class="number" value="6">6</button>
+		<button class="operator" value="*">x</button>		
+	</div>
+	
+	
+	<div class="rows">
+		<button class="number" value="3">3</button>
+		<button class="number" value="2">2</button>
+		<button class="number" value="1">1</button>
+		<button class="operator" value="/">/</button>	
+	</div>
+	
+	
+	<div class="rows">
+		<button class="big" value="0">0</button>
+		<button class="dot" value=".">.</button>
+		<button id = "evaluator" value="=">=</button>
+	</div>
+	
+</div>
+		 
+<script>
+window.onload = function(){
+	var result = document.getElementById('screen');
+	
+	
+
+	var btn = document.getElementsByClassName('number');
+	
+	for (var i = 0 ; i < btn.length; i++){
+		btn[i].addEventListener('click', function(){
+		
+			result.innerHTML += this.value;
+		
+		});	
+	}
+	
+	document.querySelector('.del').addEventListener('click', function(){
+		result.innerHTML = '';
+	});
+	
+		document.querySelector('.dot').addEventListener('click', function(){
+		result.innerHTML += ".";
+	});
+	
+	var operator = document.getElementsByClassName('operator');
+	
+	for (var i = 0 ; i < operator.length; i++){
+		operator[i].addEventListener('click', function(){
+		operator = this.value;
+		
+			result.innerHTML = result.innerHTML.concat(operator);
+		
+		});	
+	}
+
+	document.getElementById('evaluator').addEventListener('click', function(){
+	result.innerHTML = eval(result.innerHTML);
+	
+	});
+						
+};
+	
+
+
+
+</script>
+
+
+
+        
