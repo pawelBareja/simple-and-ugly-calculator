@@ -45,8 +45,8 @@
 	<div id ="screen"></div>
 	
 	<div class="rows">
-		<button class="big del" value="del">del</button>
-		<button class="" value="%">%</button>
+		<button class="big" id = "del" value="del">del</button>
+		<button class="%" value="%">%</button>
 		<button class="operator" value="+">+</button>
 	</div>
 	
@@ -75,8 +75,8 @@
 	
 	
 	<div class="rows">
-		<button class="big" value="0">0</button>
-		<button class="dot" value=".">.</button>
+		<button id ="zero" class="big" value="0">0</button>
+		<button id="dot" value=".">.</button>
 		<button id = "evaluator" value="=">=</button>
 	</div>
 	
@@ -84,43 +84,86 @@
 		 
 <script>
 window.onload = function(){
-	var result = document.getElementById('screen');
-	
-	
+	var output;
+	var operator;
 
-	var btn = document.getElementsByClassName('number');
-	
-	for (var i = 0 ; i < btn.length; i++){
-		btn[i].addEventListener('click', function(){
-		
-			result.innerHTML += this.value;
-		
-		});	
+	var screen = document.getElementById('screen');
+
+	var elem = document.getElementsByClassName('number');
+
+	for(var i = 0; i < elem.length; i++){
+		elem[i].addEventListener('click', function(){
+			num = this.value;
+			output = screen.innerHTML = screen.innerHTML +num;
+
+			if (screen.innerHTML.length > 15 ){
+
+				screen.innerHTML = 'to many digits, try again';
+			};
+		});
+
 	}
 	
-	document.querySelector('.del').addEventListener('click', function(){
-		result.innerHTML = '';
+	document.getElementById('zero').addEventListener('click', function(){
+
+		var zero = this.value;
+
+		if(screen.innerHTML ===''){
+			output = screen.innerHTML = zero;
+		} else if (screen.innerHTML ===output){
+			output = screen.innerHTML += zero;
+		};
+
 	});
-	
-		document.querySelector('.dot').addEventListener('click', function(){
-		result.innerHTML += ".";
+
+	document.getElementById('dot').addEventListener('click', function(){
+		var dot = this.value;
+		if(screen.innerHTML === ""){
+			output = screen.innerHTML = screen.innerHTML.concat("0.");
+		}else if(screen.innerHTML === output){
+			screen.innerHTML = screen.innerHTML.concat(".");
+		};
+
 	});
-	
-	var operator = document.getElementsByClassName('operator');
-	
-	for (var i = 0 ; i < operator.length; i++){
+
+		var operator = document.getElementsByClassName('operator');
+		console.log(operator);
+
+			for(var i = 0; i < operator.length; i++){
 		operator[i].addEventListener('click', function(){
-		operator = this.value;
-		
-			result.innerHTML = result.innerHTML.concat(operator);
-		
-		});	
+			operator = this.value;
+			if(screen.innerHTML === output){
+			output = screen.innerHTML = screen.innerHTML.concat(operator);
+			} else {
+				screen.innerHTML = "";
+
+			};
+
+		},false);
+
+
+		document.getElementById('evaluator').addEventListener('click', function(){
+			if(screen.innerHTML = output) {
+				screen.innerHTML = eval(output);
+			} else {
+				screen.innerHTML = '';
+			};
+
+		});
+
 	}
 
-	document.getElementById('evaluator').addEventListener('click', function(){
-	result.innerHTML = eval(result.innerHTML);
+
+			document.getElementById('del').addEventListener('click', function(){
+			output = screen.innerHTML = '';
+		});
+
 	
-	});
+
+
+
+
+
 						
 };
 	
